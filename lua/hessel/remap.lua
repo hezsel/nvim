@@ -18,15 +18,5 @@ vim.keymap.set("n", "<leader>b", ":<C-u>call gitblame#echo()<CR>")
 
 vim.keymap.set("n", "<leader>json", ":%!jq<CR>")
 
-vim.keymap.set("x", "<leader>(", "xi()<Esc>P")
-
 vim.keymap.set("n", "<leader>/", "gcc")
 
-vim.keymap.set('n', '<leader>c', '<Plug>OSCYankOperator')
-vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
-vim.keymap.set('v', '<leader>c', '<Plug>OSCYankVisual')
-
-vim.keymap.set('n', '<leader>m', require('treesj').toggle)
-vim.keymap.set('n', '<leader>M', function()
-    require('treesj').toggle({ split = { recursive = true } })
-end)
