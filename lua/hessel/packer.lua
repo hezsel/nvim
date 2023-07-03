@@ -31,9 +31,9 @@ return require('packer').startup(function(use)
   'VonHeikemen/lsp-zero.nvim',
   requires = {
     -- LSP Support
-    {'neovim/nvim-lspconfig'},
     {'williamboman/mason.nvim'},
     {'williamboman/mason-lspconfig.nvim'},
+    {'neovim/nvim-lspconfig'},
 
     -- Autocompletion
     {'hrsh7th/nvim-cmp'},
@@ -49,11 +49,31 @@ return require('packer').startup(function(use)
   }
 
 }
+
   use 'tpope/vim-commentary'
+
   use 'tpope/vim-surround'
+
   use 'zivyangll/git-blame.vim'
 
   use 'mileszs/ack.vim'
 
   use 'ojroques/vim-oscyank'
+
+  use 'airblade/vim-gitgutter'
+
+  use 'mg979/vim-visual-multi'
+
+  use {
+    'Wansmer/treesj',
+    requires = { 'nvim-treesitter' },
+    config = function()
+      require('treesj').setup({--[[ your config ]]})
+    end,
+  }
+
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
 end)
