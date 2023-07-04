@@ -20,3 +20,4 @@ vim.keymap.set("n", "<leader>json", ":%!jq<CR>")
 
 vim.keymap.set("n", "<leader>/", "gcc")
 
+vim.keymap.set("x", "<leader>p", [["_dP]])
