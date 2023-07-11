@@ -64,9 +64,6 @@ return require('packer').startup(function(use)
   use {
     'Wansmer/treesj',
     requires = { 'nvim-treesitter' },
-    config = function()
-      require('treesj').setup({--[[ your config ]]})
-    end,
   }
 
   use {
@@ -75,4 +72,6 @@ return require('packer').startup(function(use)
   }
 
   use 'github/copilot.vim'
+
+  use 'ggandor/leap.nvim'
 end)

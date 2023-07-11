@@ -16,8 +16,6 @@ vim.keymap.set("n", "<leader>w", "<C-w>w")
 
 vim.keymap.set("n", "<leader>b", ":<C-u>call gitblame#echo()<CR>")
 
-vim.keymap.set("n", "<leader>json", ":%!jq<CR>")
-
-vim.keymap.set("n", "<leader>/", "gcc")
+vim.keymap.set("n", "<leader>J", ":%!jq<CR>")
 
 vim.keymap.set("x", "<leader>p", [["_dP]])
