@@ -11,10 +11,10 @@ return require('packer').startup(function(use)
   }
 
   use({
-	  'rose-pine/neovim',
-	  as = 'rose-pine',
+	  'rebelot/kanagawa.nvim',
+	  as = 'kanagawa',
 	  config = function()
-		  vim.cmd('colorscheme rose-pine')
+		  vim.cmd('colorscheme kanagawa')
 	  end
   })
 
@@ -74,4 +74,11 @@ return require('packer').startup(function(use)
   use 'github/copilot.vim'
 
   use 'ggandor/leap.nvim'
+
+  use {
+    'vimwiki/vimwiki',
+    init = function ()
+      vim.g.vimwiki_list = {{ syntax = 'markdown', ext = '.md' }}
+   end
+  }
 end)
