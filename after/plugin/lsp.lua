@@ -1,13 +1,14 @@
 local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
--- vim.lsp.set_log_level("debug")
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  -- Replace the language servers listed here 
-  -- with the ones you want to install
-  ensure_installed = {'tsserver', 'rust_analyzer'},
+  ensure_installed = {
+    'ts_ls',
+    'rust_analyzer',
+    'eslint',
+  },
   handlers = {
     lsp.default_setup,
   },
@@ -24,6 +25,13 @@ lsp.configure('lua_ls', {
     }
 })
 
+lsp.configure('eslint', {
+  settings = {
+    experimental = {
+      useFlatConfig = true
+    }
+  }
+})
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
