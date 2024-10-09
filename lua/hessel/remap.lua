@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", ":Oil<CR>")
 
 vim.keymap.set("n", "<C-f>", "<C-f>zz")
 vim.keymap.set("n", "<C-b>", "<C-b>zz")
@@ -19,3 +19,4 @@ vim.keymap.set("n", "<leader>b", ":<C-u>call gitblame#echo()<CR>")
 vim.keymap.set("n", "<leader>J", ":%!jq<CR>")
 
 vim.keymap.set("x", "<leader>p", [["_dP]])
+
