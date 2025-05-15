@@ -11,7 +11,7 @@ vim.keymap.set("n", "<leader>j", "<C-w>j")
 vim.keymap.set("n", "<leader>k", "<C-w>k")
 vim.keymap.set("n", "<leader>h", "<C-w>h")
 vim.keymap.set("n", "<leader>l", "<C-w>l")
-vim.keymap.set("n", "<leader>o", "<C-w>o")
+vim.keymap.set("n", "<leader>oo", "<C-w>o")
 vim.keymap.set("n", "<leader>w", "<C-w>w")
 
 vim.keymap.set("n", "<leader>b", ":<C-u>call gitblame#echo()<CR>")

@@ -80,16 +80,29 @@ return require('packer').startup(function(use)
 
   use 'ggandor/leap.nvim'
 
-  use {
-    'vimwiki/vimwiki',
-    init = function ()
-      vim.g.vimwiki_list = {{ syntax = 'markdown', ext = '.md' }}
-   end
-  }
-
   use 'christoomey/vim-tmux-navigator'
 
   use 'prettier/vim-prettier'
 
   use 'stevearc/oil.nvim'
+
+  use 'sindrets/diffview.nvim'
+
+  use {
+    'ray-x/go.nvim',
+    ft = { 'go', 'gomod' },
+    dependencies = { 'ray-x/guihua.lua' },
+    config = function()
+      require('go').setup()
+    end
+  }
+
+  use {
+    "epwalsh/obsidian.nvim",
+    tag = "*",  -- recommended, use latest release instead of latest commit
+    requires = {
+      -- Required.
+      "nvim-lua/plenary.nvim",
+    }
+  }
 end)
