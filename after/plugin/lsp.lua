@@ -1,98 +1,122 @@
-local lsp = require("lsp-zero")
+-- mason.lua
+require("mason").setup()
 
-lsp.preset("recommended")
-
--- Fix Undefined global 'vim'
-lsp.configure('lua_ls', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
-})
-
-require('mason').setup({})
-require('mason-lspconfig').setup({
+require("mason-lspconfig").setup({
   ensure_installed = {
-    'ts_ls',
-    'rust_analyzer',
-    'eslint',
-    'lua_ls',
-    'gopls',
-    'templ',
+    "lua_ls",
+    "rust_analyzer",
+    "gopls",
+    "templ",
+    "eslint",
+    "volar",
+    "vtsls",
   },
-  handlers = {
-    lsp.default_setup,
+  automatic_installation = true,
+})
+
+local lspconfig = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+local on_attach = function(client, bufnr)
+  local map = vim.keymap.set
+  local opts = { buffer = bufnr, remap = false }
+
+  if client.name == "eslint" then
+    client.server_capabilities.documentFormattingProvider = false
+  end
+
+  map("n", "gd", vim.lsp.buf.definition, opts)
+  map("n", "K", vim.lsp.buf.hover, opts)
+  map("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
+  map("n", "<leader>vd", vim.diagnostic.open_float, opts)
+  map("n", "[d", vim.diagnostic.goto_next, opts)
+  map("n", "]d", vim.diagnostic.goto_prev, opts)
+  map("n", "<leader>vca", vim.lsp.buf.code_action, opts)
+  map("n", "<leader>vrr", vim.lsp.buf.references, opts)
+  map("n", "<leader>vrn", vim.lsp.buf.rename, opts)
+  map("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+end
+
+-- Explicit configuration for specific servers
+vim.lsp.config("lua_ls", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT' },
+      diagnostics = {
+        globals = { 'vim', 'require' },
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.fn.expand("$VIMRUNTIME/lua"),
+          vim.fn.stdpath("config") .. "/lua",
+        },
+      },
+    },
   },
 })
 
-lsp.configure('eslint', {
+vim.lsp.config("eslint", {
+  capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     experimental = {
-      useFlatConfig = true
-    }
-  }
+      useFlatConfig = true,
+    },
+  },
 })
 
-local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<enter>'] = cmp.mapping.confirm({ select = true }),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
+vim.lsp.config("volar", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "vue" },
 })
 
--- disable completion with tab
--- this helps with copilot setup
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
+vim.lsp.config("vtsls", {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+})
 
+
+--Optional: let the rest auto-config
+for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
+  if not lspconfig[server].manager then
+    vim.lsp.config(server, {
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
+  end
+end
+
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 cmp.setup({
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = nil,
+    ['<S-Tab>'] = nil,
+  },
   window = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
-  mapping = cmp_mappings
+  sources = {
+    { name = "nvim_lsp" },
+    { name = "luasnip" },
+    { name = "buffer" },
+    { name = "path" },
+  },
 })
-
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-})
-
-lsp.on_attach(function(client, bufnr)
-  local opts = {buffer = bufnr, remap = false}
-
-  if client.name == "eslint" then
-      vim.cmd.LspStop('eslint')
-      return
-  end
-
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-  vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-  vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-  vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-  vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
-  vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-end)
-
-lsp.setup()
-
-vim.diagnostic.config({
-    virtual_text = true,
-})
-
