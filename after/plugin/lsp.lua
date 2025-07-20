@@ -8,7 +8,7 @@ require("mason-lspconfig").setup({
     "gopls",
     "templ",
     "eslint",
-    "volar",
+    "vue_ls",
     "vtsls",
   },
   automatic_installation = true,

@@ -5,6 +5,9 @@ require("obsidian").setup({
     date_format = "%Y-%m-%d",
     default_tags = { "daily-notes" },
   },
+  ui = {
+    enable = false,
+  },
   completion = {
     nvim_cmp = true,
   },
@@ -74,7 +77,7 @@ require("obsidian").setup({
 })
 
 vim.keymap.set("n", "<leader>o", ":ObsidianOpen<CR>")
-vim.opt.conceallevel = 1
+-- vim.opt.conceallevel = 1
 
 vim.keymap.set("n", "<leader>on", function()
   vim.cmd("set splitright")
