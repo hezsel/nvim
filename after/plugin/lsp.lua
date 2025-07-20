@@ -1,4 +1,3 @@
--- mason.lua
 require("mason").setup()
 
 require("mason-lspconfig").setup({
@@ -8,10 +7,9 @@ require("mason-lspconfig").setup({
     "gopls",
     "templ",
     "eslint",
-    "vue_ls",
+    -- "vue_ls",
     "vtsls",
   },
-  automatic_installation = true,
 })
 
 local lspconfig = require("lspconfig")
@@ -61,19 +59,19 @@ vim.lsp.config("lua_ls", {
 vim.lsp.config("eslint", {
   capabilities = capabilities,
   on_attach = on_attach,
-  settings = {
-    experimental = {
-      useFlatConfig = true,
-    },
-  },
+  -- settings = {
+  --   experimental = {
+  --     useFlatConfig = true,
+  --   },
+  -- },
 })
 
-vim.lsp.config("volar", {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  filetypes = { "vue" },
-})
-
+-- vim.lsp.config("volar", {
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+--   filetypes = { "vue" },
+-- })
+--
 vim.lsp.config("vtsls", {
   capabilities = capabilities,
   on_attach = on_attach,
