@@ -26,9 +26,9 @@ local on_attach = function(client, bufnr)
   map("n", "gd", vim.lsp.buf.definition, opts)
   map("n", "K", vim.lsp.buf.hover, opts)
   map("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-  map("n", "<leader>vd", vim.diagnostic.open_float, opts)
-  map("n", "[d", vim.diagnostic.goto_next, opts)
-  map("n", "]d", vim.diagnostic.goto_prev, opts)
+  map("n", "<leader>q", vim.diagnostic.open_float, opts)
+  -- map("n", "[d", vim.diagnostic.goto_next, opts)
+  -- map("n", "]d", vim.diagnostic.goto_prev, opts)
   map("n", "<leader>vca", vim.lsp.buf.code_action, opts)
   map("n", "<leader>vrr", vim.lsp.buf.references, opts)
   map("n", "<leader>vrn", vim.lsp.buf.rename, opts)
@@ -71,7 +71,7 @@ vim.lsp.config("eslint", {
 --   on_attach = on_attach,
 --   filetypes = { "vue" },
 -- })
---
+
 vim.lsp.config("vtsls", {
   capabilities = capabilities,
   on_attach = on_attach,

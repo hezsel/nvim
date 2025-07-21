@@ -50,14 +50,11 @@ return require('packer').startup(function(use)
   use { 'L3MON4D3/LuaSnip' }
   use { 'rafamadriz/friendly-snippets' }
 
-  use {
-      'numToStr/Comment.nvim',
-      config = function()
-          require('Comment').setup()
-      end
-  }
+  use 'echasnovski/mini.ai'
 
-  use 'tpope/vim-surround'
+  use 'echasnovski/mini.comment'
+
+  use 'echasnovski/mini.surround'
 
   use 'zivyangll/git-blame.vim'
 

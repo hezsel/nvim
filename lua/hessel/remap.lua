@@ -20,3 +20,4 @@ vim.keymap.set("n", "<leader>J", ":%!jq<CR>")
 
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
+vim.keymap.set("n", "<leader>w", ":set wrap!<CR>", { silent = true })
