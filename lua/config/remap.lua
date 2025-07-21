@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 vim.keymap.set("n", "<leader>pv", ":Oil<CR>")
 
 vim.keymap.set("n", "<C-f>", "<C-f>zz")

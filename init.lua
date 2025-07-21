@@ -1,1 +1,1 @@
-require("hessel")
+require("config.lazy")
